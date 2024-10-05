@@ -82,10 +82,19 @@ public class CountriesServiceImpl implements CountriesService {
         for (Country pais : paises) {
             Map<String, String> languages = pais.getLanguages();
 
-            boolean contieneIdioma = languages.values().stream()
-                    .anyMatch(lang -> lang.equalsIgnoreCase(idioma));
+            boolean contieneIdioma = false;
+            if (languages != null) {
+                contieneIdioma = languages.values().stream()
+                        .anyMatch(lang -> {
+                            if (idioma == null || idioma.trim().isEmpty()) {
+                                return true;
+                            }
 
-            if (contieneIdioma || idioma == null || idioma.isEmpty()) {
+                            return lang.trim().equalsIgnoreCase(idioma.trim());
+                        });
+            }
+
+            if (contieneIdioma) {
                 CountryEntity paisEntity = modelMapper.map(pais, CountryEntity.class);
                 countryRepository.save(paisEntity);
 

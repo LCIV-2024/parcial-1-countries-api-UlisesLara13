@@ -27,15 +27,15 @@ public class CountryController {
         return ResponseEntity.ok(paises);
     }
 
-    @GetMapping("/countries/{continent}")
-    public ResponseEntity<List<CountryDTO>> ObtenerPaisesPorRegion(@PathVariable("region") String region) {
-        List<CountryDTO> paises = countriesService.ObtenerPorContinente(region);
+    @GetMapping("/countries/{continent}/continent")
+    public ResponseEntity<List<CountryDTO>> ObtenerPaisesPorRegion(@PathVariable("continent") String Continent) {
+        List<CountryDTO> paises = countriesService.ObtenerPorContinente(Continent);
         return ResponseEntity.ok(paises);
     }
 
-    @GetMapping("/countries/{language}")
-    public ResponseEntity<List<CountryDTO>> ObtenerPaisesPorIdioma(@PathVariable("idioma") String idioma) {
-        List<CountryDTO> paises = countriesService.ObtenerPaisesPorIdioma(idioma);
+    @GetMapping("/countries/{language}/language")
+    public ResponseEntity<List<CountryDTO>> ObtenerPaisesPorIdioma(@PathVariable("language") String Language) {
+        List<CountryDTO> paises = countriesService.ObtenerPaisesPorIdioma(Language);
         return ResponseEntity.ok(paises);
     }
 
@@ -45,7 +45,7 @@ public class CountryController {
         if (paisConMasFronteras != null) {
             return ResponseEntity.ok(paisConMasFronteras);
         } else {
-            return ResponseEntity.notFound().build(); // Manejo del caso en que no se encuentre ningún país
+            return ResponseEntity.notFound().build();
         }
     }
 
